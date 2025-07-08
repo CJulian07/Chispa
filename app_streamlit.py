@@ -4,7 +4,6 @@ import pandas as pd
 import random
 import time
 import io
-import matplotlib.pyplot as plt
 from collections import Counter, defaultdict
 
 # Configuraciones
@@ -40,6 +39,7 @@ if archivo:
 
             st.write("🔁 Generando combinaciones y simulando... Esto puede tardar un poco.")
             progress = st.progress(0)
+            status = st.empty()
             combinaciones = set()
 
             while len(combinaciones) < CANTIDAD_COMBINACIONES:
@@ -56,8 +56,16 @@ if archivo:
                 for comb in combinaciones:
                     aciertos = len(sorteo & set(comb))
                     resultados[comb][aciertos] += 1
-                if i % (TOTAL_SIMULACIONES // 100) == 0:
+
+                if i % (TOTAL_SIMULACIONES // 100) == 0 and i > 0:
                     progreso = int(i / TOTAL_SIMULACIONES * 100)
+                    elapsed = time.time() - inicio
+                    estimado = (elapsed / progreso) * (100 - progreso)
+                    minutos = int(elapsed) // 60
+                    segundos = int(elapsed) % 60
+                    est_min = int(estimado) // 60
+                    est_seg = int(estimado) % 60
+                    status.text(f"⏱ Tiempo: {minutos}m {segundos}s | Estimado restante: {est_min}m {est_seg}s")
                     progress.progress(progreso)
 
             duracion = int(time.time() - inicio)
