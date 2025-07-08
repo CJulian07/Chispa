@@ -1,5 +1,5 @@
 
-# Simulador de Lotería Inteligente (Streamlit)
+# Simulador de Inteligente (Streamlit)
 
 Este proyecto simula combinaciones ganadoras basadas en resultados anteriores.
 
