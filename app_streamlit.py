@@ -13,7 +13,7 @@ RANGO = list(range(1, 29))
 
 st.set_page_config(page_title="Simulador de Lotería", layout="centered")
 
-st.title("🔢 Simulador de Lotería Inteligente")
+st.title("🔢 Simulador de Chispa Inteligente")
 st.write("Sube tu archivo CSV con los resultados pasados (columnas R1 a R5).")
 
 archivo = st.file_uploader("Selecciona el archivo CSV", type=["csv"])
