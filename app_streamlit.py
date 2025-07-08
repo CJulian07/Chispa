@@ -4,14 +4,15 @@ import pandas as pd
 import random
 import time
 import io
+import matplotlib.pyplot as plt
 from collections import Counter, defaultdict
 
 # Configuraciones
-TOTAL_SIMULACIONES = 100000
+TOTAL_SIMULACIONES = 1000000
 CANTIDAD_COMBINACIONES = 1000
 RANGO = list(range(1, 29))
 
-st.set_page_config(page_title="Simulador de Lotería", layout="centered")
+st.set_page_config(page_title="Simulador de Chispa", layout="centered")
 
 st.title("🔢 Simulador de Chispa Inteligente")
 st.write("Sube tu archivo CSV con los resultados pasados (columnas R1 a R5).")
@@ -28,6 +29,10 @@ if archivo:
             frecuencia = Counter()
             for fila in resultados_hist:
                 frecuencia.update(fila)
+
+            st.subheader("📊 Frecuencia de Números (Historial)")
+            freq_df = pd.DataFrame(frecuencia.items(), columns=["Número", "Frecuencia"]).sort_values(by="Número")
+            st.bar_chart(freq_df.set_index("Número"))
 
             def generar_combinacion():
                 pesos = [frecuencia.get(i, 0) + 1 for i in RANGO]
@@ -55,6 +60,10 @@ if archivo:
                     progreso = int(i / TOTAL_SIMULACIONES * 100)
                     progress.progress(progreso)
 
+            duracion = int(time.time() - inicio)
+            minutos = duracion // 60
+            segundos = duracion % 60
+
             def indice(c):
                 r = resultados[c]
                 return (r[2]*1 + r[3]*3 + r[4]*6 + r[5]*10) / TOTAL_SIMULACIONES
@@ -62,7 +71,7 @@ if archivo:
             ranking = sorted([(c, indice(c)) for c in combinaciones], key=lambda x: x[1], reverse=True)
             top3 = ranking[:3]
 
-            st.success(f"✅ Simulación completada en {int(time.time() - inicio)} segundos")
+            st.success(f"✅ Simulación completada en {minutos}m {segundos}s")
 
             st.subheader("🏆 Mejores 3 combinaciones")
             for i, (comb, score) in enumerate(top3, 1):
