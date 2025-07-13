@@ -77,11 +77,11 @@ if archivo:
                 return (r[2]*1 + r[3]*3 + r[4]*6 + r[5]*10) / TOTAL_SIMULACIONES
 
             ranking = sorted([(c, indice(c)) for c in combinaciones], key=lambda x: x[1], reverse=True)
-            top3 = ranking[:3]
+            top3 = ranking[:5]
 
             st.success(f"✅ Simulación completada en {minutos}m {segundos}s")
 
-            st.subheader("🏆 Mejores 3 combinaciones")
+            st.subheader("🏆 Mejores 5 combinaciones")
             for i, (comb, score) in enumerate(top3, 1):
                 st.write(f"{i}. {comb} → Índice: {score:.6f}")
 
