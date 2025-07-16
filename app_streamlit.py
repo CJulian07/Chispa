@@ -7,7 +7,7 @@ import io
 from collections import Counter, defaultdict
 
 # Configuraciones
-TOTAL_SIMULACIONES = 100000
+TOTAL_SIMULACIONES = 1000000
 CANTIDAD_COMBINACIONES = 4095
 RANGO = list(range(1, 29))
 
